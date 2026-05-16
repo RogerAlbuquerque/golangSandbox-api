@@ -17,6 +17,7 @@ func (r *UserRepository) Create(user *models.User) error {
     VALUES ($1, $2)
     RETURNING id
     `
+
 	return r.DB.QueryRow(
 		query,
 		user.Name,

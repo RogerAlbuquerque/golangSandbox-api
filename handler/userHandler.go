@@ -34,9 +34,10 @@ func (h *userHandler) CreateUser(w http.ResponseWriter, r *http.Request) {
 	}
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusCreated)
-	json.NewEncoder(w).Encode(user)
+	// json.NewEncoder(w).Encode(user)
 	jsonData, _ := json.MarshalIndent(user, "", "  ")
 
+	w.Write([]byte(jsonData))
 	fmt.Println(string(jsonData))
 
 }
