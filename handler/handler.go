@@ -4,13 +4,18 @@ import (
 	"log"
 	"net/http"
 
+	"example.com/postgresdatabase/config"
 	"example.com/postgresdatabase/database"
 	"example.com/postgresdatabase/database/repositories"
 )
 
 func Initialize() {
+
+	logMy := config.NewLogger()
+
 	database, err := database.Connect()
-	if err != nil {
+	if err == nil {
+		logMy.Error("Erro ao conectar no banco")
 		log.Fatal(err)
 	}
 
