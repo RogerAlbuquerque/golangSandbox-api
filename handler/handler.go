@@ -11,7 +11,7 @@ import (
 
 func Initialize() {
 
-	logMy := config.NewLogger()
+	logMy := config.Logger{}
 
 	database, err := database.Connect()
 	if err == nil {

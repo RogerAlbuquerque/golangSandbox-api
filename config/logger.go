@@ -3,7 +3,8 @@ package config
 import (
 	"fmt"
 	"log"
-	"os"
+
+	// "os"
 	"path/filepath"
 	"runtime"
 	"time"
@@ -14,34 +15,34 @@ type Logger struct {
 	errorLogger *log.Logger
 }
 
-func NewLogger() *Logger {
-	file, err := os.OpenFile(
-		"app.log",
-		os.O_CREATE|os.O_APPEND|os.O_WRONLY,
-		0666,
-	)
+// func NewLogger() *Logger {
+// 	file, err := os.OpenFile(
+// 		"app.log",
+// 		os.O_CREATE|os.O_APPEND|os.O_WRONLY,
+// 		0666,
+// 	)
 
-	if err != nil {
-		log.Fatal(err)
-	}
+// 	if err != nil {
+// 		log.Fatal(err)
+// 	}
 
-	info := log.New(
-		file,
-		"[INFO] ",
-		log.Lshortfile,
-	)
+// 	info := log.New(
+// 		file,
+// 		"[INFO] ",
+// 		log.Lshortfile,
+// 	)
 
-	errors := log.New(
-		os.Stdout,
-		"\033[41m[ERROR]\033[0m >> ",
-		log.Llongfile,
-	)
+// 	errors := log.New(
+// 		os.Stdout,
+// 		"\033[41m[ERROR]\033[0m >> ",
+// 		log.Llongfile,
+// 	)
 
-	return &Logger{
-		infoLogger:  info,
-		errorLogger: errors,
-	}
-}
+// 	return &Logger{
+// 		infoLogger:  info,
+// 		errorLogger: errors,
+// 	}
+// }
 
 func (l *Logger) Info(message string) {
 	_, file, line, ok := runtime.Caller(1)
