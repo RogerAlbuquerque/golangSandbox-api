@@ -1,8 +1,12 @@
 package config
 
 import (
+	"fmt"
 	"log"
 	"os"
+	"path/filepath"
+	"runtime"
+	"time"
 )
 
 type Logger struct {
@@ -24,13 +28,13 @@ func NewLogger() *Logger {
 	info := log.New(
 		file,
 		"[INFO] ",
-		log.Ldate|log.Ltime,
+		log.Lshortfile,
 	)
 
 	errors := log.New(
 		os.Stdout,
-		"\033[41m[ERROR]\033[0m",
-		log.Ldate|log.Ltime,
+		"\033[41m[ERROR]\033[0m >> ",
+		log.Llongfile,
 	)
 
 	return &Logger{
@@ -40,9 +44,50 @@ func NewLogger() *Logger {
 }
 
 func (l *Logger) Info(message string) {
-	l.infoLogger.Println(message)
+	_, file, line, ok := runtime.Caller(1)
+
+	if !ok {
+		file = "unknown"
+		line = 0
+	}
+
+	filename := filepath.Base(file)
+
+	timestamp := time.Now().Format(
+		"2006-01-02 15:04:05",
+	)
+
+	fmt.Printf(
+		"|\033[90m%s\033[0m| \033[100m[INFO]\033[0m >> %s >> %s:%d\n\n",
+		timestamp,
+		message,
+		filename,
+		line,
+	)
 }
 
 func (l *Logger) Error(message string) {
-	l.errorLogger.Println(message)
+	_, file, line, ok := runtime.Caller(1)
+
+	if !ok {
+		file = "unknown"
+		line = 0
+	}
+
+	filename := filepath.Base(file)
+
+	timestamp := time.Now().Format(
+		"2006-01-02 15:04:05",
+	)
+
+	fmt.Printf(
+		"|\033[90m%s\033[0m| \033[41m[ERROR]\033[0m >> %s >> %s:%d\n\n",
+		timestamp,
+		message,
+		filename,
+		line,
+	)
+	log.Fatal()
+
+	// l.errorLogger.Println(message)
 }

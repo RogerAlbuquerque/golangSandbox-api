@@ -15,8 +15,8 @@ func Initialize() {
 
 	database, err := database.Connect()
 	if err == nil {
-		logMy.Error("Erro ao conectar no banco")
-		log.Fatal(err)
+		logMy.Info("Erro ao conectar no banco")
+		// log.Fatal()
 	}
 
 	userRepo := &repositories.UserRepository{
