@@ -15,7 +15,7 @@ func Initialize() {
 
 	database, err := database.Connect()
 	if err == nil {
-		logMy.Info("Erro ao conectar no banco")
+		logMy.Error("Erro ao conectar no banco")
 		// log.Fatal()
 	}
 
